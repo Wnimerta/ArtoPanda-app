@@ -15,7 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/splashscreen" />
+        app:srcCompat="@drawable/background" />
 
     <ImageView
         android:id="@+id/logo"
@@ -26,7 +26,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/imageView2"
         android:outlineAmbientShadowColor="@color/black"
-        app:srcCompat="@drawable/applogo" />
+        app:srcCompat="@drawable/untitleddd" />
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="50dp"

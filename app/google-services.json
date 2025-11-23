@@ -1,36 +1,26 @@
 {
   "project_info": {
-    "project_number": "469718637752",
-    "project_id": "karu-android-app",
-    "storage_bucket": "karu-android-app.appspot.com"
+    "project_number": "79348585110",
+    "project_id": "karu-android-app-597bf",
+    "storage_bucket": "karu-android-app-597bf.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:469718637752:android:f3223a0399182f0e22e84d",
+        "mobilesdk_app_id": "1:79348585110:android:ed02eb4fe958da7a9ce8b7",
         "android_client_info": {
           "package_name": "com.example.karu_android_app"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "469718637752-arkn4cvddu4aa7u3hsqv44fhphioe45k.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA4zg0Xli7HLZuoxSjUIlYWPiLqYso8jog"
+          "current_key": "AIzaSyBsoXb37Et56BjUFNAo_kPSAY4wtzUI_gc"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "469718637752-arkn4cvddu4aa7u3hsqv44fhphioe45k.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

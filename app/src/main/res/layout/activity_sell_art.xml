@@ -254,7 +254,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
             android:background="@drawable/text_custom_background"
-            android:hint="Enter price in taka"
+            android:hint="Enter price in PKR"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

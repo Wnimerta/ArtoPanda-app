@@ -52,20 +52,14 @@ public class signIN extends AppCompatActivity implements OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-
-            case R.id.logInBTN:
-
-                userLogin();
-
-                break;
-
-            case R.id.newHere:
-                Intent intent = new Intent(getApplicationContext(),signup.class);
-                startActivity(intent);
-
-                break;
+        int viewId = view.getId();
+        if (viewId == R.id.logInBTN) {
+            userLogin();
+        } else if (viewId == R.id.newHere) {
+            Intent intent = new Intent(getApplicationContext(), signup.class);
+            startActivity(intent);
         }
+
 
     }
 

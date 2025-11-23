@@ -28,18 +28,15 @@ public class dashboard extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment selectedFragment = null;
-            switch (item.getItemId()) {
-                case R.id.home:
-                    selectedFragment = new homeFragment();
-                    break;
-                case R.id.notification:
-                    selectedFragment = new notificationFragment();
-                    break;
-                case R.id.setting:
-                    selectedFragment = new settingFragment();
-                    break;
-
+            int itemId = item.getItemId();
+            if (itemId == R.id.home) {
+                selectedFragment = new homeFragment();
+            } else if (itemId == R.id.notification) {
+                selectedFragment = new notificationFragment();
+            } else if (itemId == R.id.setting) {
+                selectedFragment = new settingFragment();
             }
+
 
 
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();

@@ -49,18 +49,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/headline1">
 
-            <com.synnapps.carouselview.CarouselView
-                android:id="@+id/carouselImage"
+            <!-- The ViewPager2 for the image carousel -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/carouselViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:fillColor="#FFFFFFFF"
-                app:indicatorVisibility="invisible"
-                app:pageColor="#00000000"
-                app:radius="80dp"
-                app:slideInterval="3000"
-                app:strokeColor="#FF777777"
-                app:strokeWidth="1dp" />
+                android:layout_height="match_parent" />
+
         </androidx.cardview.widget.CardView>
+
         <TextView
             android:id="@+id/profileTextView"
             android:layout_width="wrap_content"

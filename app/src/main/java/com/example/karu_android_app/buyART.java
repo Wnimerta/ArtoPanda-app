@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2; // <-- Import ViewPager2
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -30,10 +31,14 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.squareup.picasso.Picasso;
-import com.synnapps.carouselview.CarouselView;
-import com.synnapps.carouselview.ImageListener;
 
+// Remove old imports
+// import com.synnapps.carouselview.CarouselView;
+// import com.synnapps.carouselview.ImageListener;
+
+import java.util.ArrayList; // <-- Import ArrayList
 import java.util.HashMap;
+import java.util.List; // <-- Import List
 import java.util.Map;
 
 public class buyART extends AppCompatActivity {
@@ -41,11 +46,13 @@ public class buyART extends AppCompatActivity {
     private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private CollectionReference postReference = db.collection("Posts");
 
-    CarouselView carouselView;
+    // --- REPLACED CAROUSELVIEW CODE ---
+    ViewPager2 carouselViewPager;
     int[] sampleImages = {R.drawable.d1, R.drawable.d2, R.drawable.d3, R.drawable.d4, R.drawable.d5};
+    // ---
 
     private Button search_button;
-    private ImageButton back,cart;
+    private ImageButton back, cart;
     FirestoreRecyclerAdapter<postDataModel, postHolder> recyclerAdapter;
     FirestoreRecyclerAdapter<postDataModel, curatedPostHolder> recyclerAdapter2;
 
@@ -62,11 +69,11 @@ public class buyART extends AppCompatActivity {
             }
         });
 
-       cart = findViewById(R.id.cartBTN);
+        cart = findViewById(R.id.cartBTN);
         cart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),main_cart.class);
+                Intent intent = new Intent(getApplicationContext(), main_cart.class);
                 startActivity(intent);
             }
         });
@@ -76,21 +83,25 @@ public class buyART extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), search_page.class);
                 startActivity(intent);
-
             }
         });
 
-        /// carousel components ////////////////////////////////////////
-        carouselView = (CarouselView) findViewById(R.id.carouselImage);
-        carouselView.setPageCount(sampleImages.length);
-        carouselView.setImageListener(imageListener);
+        // --- NEW VIEWPAGER2 SETUP ---
+        carouselViewPager = findViewById(R.id.carouselViewPager); // Use new ID from XML
+        List<Integer> imageList = new ArrayList<>();
+        for (int image : sampleImages) {
+            imageList.add(image);
+        }
+        ImageSliderAdapter adapter = new ImageSliderAdapter(imageList);
+        carouselViewPager.setAdapter(adapter);
+        // ---
 
         Query query = postReference.orderBy("price", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<postDataModel> allinfo = new FirestoreRecyclerOptions.Builder<postDataModel>().setQuery(query, postDataModel.class).build();
         recyclerAdapter = new FirestoreRecyclerAdapter<postDataModel, postHolder>(allinfo) {
             @Override
             protected void onBindViewHolder(@NonNull postHolder holder, int position, @NonNull postDataModel model) {
-
+                // ... (your existing onBindViewHolder code is fine)
                 String docId = recyclerAdapter.getSnapshots().getSnapshot(position).getId();
                 holder.title.setText(model.getTitle());
                 holder.price.setText("BDT " + String.valueOf(model.getPrice()) + " ৳");
@@ -152,17 +163,11 @@ public class buyART extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setItemAnimator(null);
         curatedPostInitiate();
-
     }
 
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImages[position]);
-        }
-    };
+    // --- DELETED old ImageListener ---
 
-
+    // ... (the rest of your file is fine)
     private void curatedPostInitiate() {
         Query query = postReference.orderBy("title", Query.Direction.ASCENDING);
         FirestoreRecyclerOptions<postDataModel> allinfo = new FirestoreRecyclerOptions.Builder<postDataModel>().setQuery(query, postDataModel.class).build();
@@ -243,7 +248,7 @@ public class buyART extends AppCompatActivity {
         }
     }
 
-//// for experiment
+    //// for experiment
     public class curatedPostHolder extends RecyclerView.ViewHolder {
         TextView title;
         TextView price;
@@ -270,5 +275,45 @@ public class buyART extends AppCompatActivity {
         super.onStop();
         recyclerAdapter.stopListening();
         recyclerAdapter2.stopListening();
+    }
+}
+
+
+// --- ADD THIS ADAPTER CLASS AT THE END OF YOUR FILE, OR IN A NEW FILE ---
+class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder> {
+
+    private final List<Integer> imageList;
+
+    ImageSliderAdapter(List<Integer> imageList) {
+        this.imageList = imageList;
+    }
+
+    @NonNull
+    @Override
+    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        ImageView imageView = new ImageView(parent.getContext());
+        imageView.setLayoutParams(new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        return new ImageViewHolder(imageView);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+        holder.imageView.setImageResource(imageList.get(position));
+        holder.imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+    }
+
+    @Override
+    public int getItemCount() {
+        return imageList.size();
+    }
+
+    static class ImageViewHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        ImageViewHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = (ImageView) itemView;
+        }
     }
 }

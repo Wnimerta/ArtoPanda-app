@@ -70,17 +70,14 @@ public class signup extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-
-            case R.id.signupBTN:
-                userRegister();
-                break;
-
-            case R.id.alreadyAccount:
-                Intent intent = new Intent(getApplicationContext(), signIN.class);
-                startActivity(intent);
-                break;
+        int viewId = view.getId();
+        if (viewId == R.id.signupBTN) {
+            userRegister();
+        } else if (viewId == R.id.alreadyAccount) {
+            Intent intent = new Intent(getApplicationContext(), signIN.class);
+            startActivity(intent);
         }
+
 
     }
 

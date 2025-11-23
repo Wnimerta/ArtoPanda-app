@@ -1,10 +1,20 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal() // For third-party plugins
+    }
+}
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+        // You can keep JitPack if you still need it for other libraries
+        maven { url 'https://jitpack.io' }
     }
 }
+
 rootProject.name = "Karu_Android_app"
 include ':app'
